@@ -6,11 +6,13 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 
 
+
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
-    
+    app.config['SECRET_KEY'] = 'billowing'
     login = LoginManager(app)
     login.login_view = 'auth.login'
     

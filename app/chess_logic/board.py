@@ -245,3 +245,14 @@ class chessBoard():
         self.move += 1
         self.moveList.append(self.board)
         return self.board
+    
+    
+    def get_all_piece_moves(self):
+        all_moves = {}
+        for row in range(8):
+            for col in range(8):
+                piece = self.board[row][col]
+                if piece is not None:
+                    moves = piece.get_moves(self)
+                    all_moves[(piece.name, row, col)] = moves  # Include piece name
+        return all_moves

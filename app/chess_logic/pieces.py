@@ -49,12 +49,12 @@ class Pawn(ChessPiece):
         moves = []
         if self.color == "white":
             if self.first_move:
-                moves.append((self.position[0], self.position[1] + 2))
-            moves.append((self.position[0], self.position[1] + 1))
+                moves.append((self.position[0] + 2, self.position[1]))
+            moves.append((self.position[0] + 1, self.position[1]))
         else:
             if self.first_move:
-                moves.append((self.position[0], self.position[1] - 2))
-            moves.append((self.position[0], self.position[1] - 1))
+                moves.append((self.position[0] - 2, self.position[1]))
+            moves.append((self.position[0] - 1, self.position[1]))
         return moves
     
     def is_valid_move(self, board, new_position):
@@ -65,10 +65,10 @@ class Pawn(ChessPiece):
     
     def is_valid_capture(self, board, new_position):
         if self.color == "white":
-            if (new_position[0] == self.position[0] + 1 or new_position[0] == self.position[0] - 1) and new_position[1] == self.position[1] + 1:
+            if (new_position[0] == self.position[1] + 1 or new_position[1] == self.position[0] - 1) and new_position[0] == self.position[1] + 1:
                 return True
         else:
-            if (new_position[0] == self.position[0] + 1 or new_position[0] == self.position[0] - 1) and new_position[1] == self.position[1] - 1:
+            if (new_position[0] == self.position[1] + 1 or new_position[1] == self.position[0] - 1) and new_position[0] == self.position[1] - 1:
                 return True
         return False
     

@@ -1,15 +1,51 @@
+import pieces
+import unittest
+from pieces import Pawn, Rook, Knight, Bishop, Queen, King
+
+
 class chessBoard():
     def __init__(self):
         self.board = [[0 for i in range(8)] for j in range(8)]
-        self.board[0] = [5, 3, 4, 9, 10, 4, 3, 5]
-        self.board[1] = [1, 1, 1, 1, 1, 1, 1, 1]
-        self.board[6] = [-1, -1, -1, -1, -1, -1, -1, -1]
-        self.board[7] = [-5, -3, -4, -9, -10, -4, -3, -5]
+        
+        # Place Pawns
+        for i in range(8):
+            self.board[1][i] = Pawn('white', (1, i))
+            self.board[6][i] = Pawn('black', (6, i))
+        
+        # Place Rooks
+        self.board[0][0] = Rook('white', (0, 0))
+        self.board[0][7] = Rook('white', (0, 7))
+        self.board[7][0] = Rook('black', (7, 0))
+        self.board[7][7] = Rook('black', (7, 7))
+
+        # Place Knights
+        self.board[0][1] = Knight('white', (0, 1))
+        self.board[0][6] = Knight('white', (0, 6))
+        self.board[7][1] = Knight('black', (7, 1))
+        self.board[7][6] = Knight('black', (7, 6))
+
+        # Place Bishops
+        self.board[0][2] = Bishop('white', (0, 2))
+        self.board[0][5] = Bishop('white', (0, 5))
+        self.board[7][2] = Bishop('black', (7, 2))
+        self.board[7][5] = Bishop('black', (7, 5))
+        
+        # Place Queens
+        self.board[0][3] = Queen('white', (0, 3))
+        self.board[7][3] = Queen('black', (7, 3))
+        
+        # Place Kings
+        self.board[0][4] = King('white', (0, 4))
+        self.board[7][4] = King('black', (7, 4))
+        
         self.turn = 1
         self.move = 0
         self.moveList = []
-        self.moveList.append(self.board)
+        self.moveList.append(self.copy_board)
         
+    def copy_board(self):
+        return [[self.board[row][col] for col in range(8)] for row in range(8)]
+    
     def get_board(self):
         return self.board
     
@@ -256,3 +292,7 @@ class chessBoard():
                     moves = piece.get_moves(self)
                     all_moves[(piece.name, row, col)] = moves  # Include piece name
         return all_moves
+    
+    
+board = chessBoard()
+print(board.get_board())
